@@ -12,7 +12,7 @@ router.use(session({
   saveUninitialized: true
 }));
 
-router.get('/login', function(req, res, next) {
+router.get('/', function(req, res, next) {
   // If user is already logged in, redirect to appropriate page
   if (req.session.user) {
     switch (req.session.user.usertype) {
