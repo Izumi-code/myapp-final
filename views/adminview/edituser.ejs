@@ -64,52 +64,60 @@
   <div class="container">
     <h1>Edit User</h1>
     <form action="/adminview/admindashboard/updateuser/<%= user.id %>" method="post">
-      <label for="firstname">Firstname:</label>
-      <input type="text" name="firstname" value="<%= user.firstname %>">
-      <br>
-      <label for="lastname">Lastname:</label>
-      <input type="text" name="lastname" value="<%= user.lastname %>">
-      <br>
-      <label for="">Gender:</label>
-      <input value="<%= user.gender %>" type="text" disabled>
-      <div class="mb-3">
-        <label for="gender" class="form-label">Update Gender</label>
-        <div class="form-check">
-          <label class="form-check-label" for="genderMale">
-            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
-            Male
-          </label>
+        <label for="firstname">Firstname:</label>
+        <input type="text" name="firstname" value="<%= user.firstname %>">
+        <br>
+        <label for="lastname">Lastname:</label>
+        <input type="text" name="lastname" value="<%= user.lastname %>">
+        <br>
+        <label for="">Gender:</label>
+        <input value="<%= user.gender %>" type="text" disabled>
+        <div class="mb-3">
+          <label for="gender" class="form-label">Update Gender</label>
+          <div class="form-check">
+            <label class="form-check-label" for="genderMale">
+              <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label" for="genderFemale">
+              <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female" required>
+              Female
+            </label>
+          </div>
         </div>
-        <div class="form-check">
-          <label class="form-check-label" for="genderFemale">
-            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female" required>
-            Female
-          </label>
-        </div>
-      </div>
-      <br>
-      <label for="contactnumber">Contact Number:</label>
-      <input type="text" name="contactnumber" value="<%= user.contactnumber %>">
-      <br>
-      <label for="email">Email:</label>
-      <input type="email" name="email" value="<%= user.email %>">
-      <br>
-      <!-- <label for="password">Old Password:</label>
-      <input type="password" id="oldpassword" name="oldpassword" required>
-      <br> -->
-      <label for="password">Type New Password:</label>
-      <input type="password" id="password" name="password" required>
-      <br>
-      <input disabled type="text" name="" id="" value="<%= user.usertype %>" required>
-      <select class="form-select" id="usertype" name="usertype" required>
-        <option value="<%= user.usertype %>">Select New User Type:</option>
-        <option value="Admin">Admin</option>
-        <option value="Manager">Manager</option>
-        <option value="User">User</option>
-      </select>
-      <br>
-      <input type="submit" value="Update">
-    </form>
+        <br>
+        <label for="contactnumber">Contact Number:</label>
+        <input type="text" name="contactnumber" value="<%= user.contactnumber %>">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="<%= user.email %>">
+        <br>
+        <!-- <label for="oldpassword">Old Password:</label>
+        <input type="password" id="oldpassword" name="oldpassword" required>
+        <br> -->
+        <label for="password">Type New Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="">Usertype:</label>
+        <input disabled type="text" name="" id="" value="<%= user.usertype %>" required>
+        <select class="form-select" id="usertype" name="usertype" <% if (user.usertype === 'User') { %>disabled<% } %> required>
+            <option value="<%= user.usertype %>">Select New User Type:</option>
+            <% if (user.usertype === 'Admin') { %>
+              <option value="Admin">Admin</option>
+              <option value="Manager">Manager</option>
+              <option value="User">User</option>
+            <% } else if (user.usertype === 'Manager') { %>
+              <option value="Manager">Manager</option>
+              <option value="User">User</option>
+            <% } else if (user.usertype === 'User') { %>
+              <option value="User">User</option>
+            <% } %>
+          </select>
+        <br>
+        <input type="submit" value="Update">
+      </form>
   </div>
 </body>
 </html>
