@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Manager Dashboard</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
   <style>
     /* Custom styles for the side panel */
@@ -40,15 +40,15 @@
       <div class="col-lg-3 col-md-4">
         <div class="side-panel">
           <ul>
-            <li><a href="/register">Create User</a></li>
-            <li><a href="/admin/profile">Profile</a></li>
+            <li><a href="/register">Create a User</a></li>
+            <li><a href="/adminview/adminProfile">Profile</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
           <h5>Records</h5>
           <ul>
-            <!-- <li><a href="/admin/admindashboard">Admin Records</a></li> -->
-            <li><a href="/admin/managerdashboard">Manager Records</a></li>
-            <li><a href="/admin/userdashboard">User Records</a></li>
+            <li><a href="/adminview/adminRecord">Admin Records</a></li>
+            <li><a href="/adminview/managerRecord">Manager Records</a></li>
+            <li><a href="/adminview/userRecord">User Records</a></li>
           </ul>
         </div>
       </div>
@@ -57,9 +57,10 @@
       <div class="col-lg-9 col-md-8">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/managerview/managerdashboard">Manager Dashboard</a>
+            <a class="navbar-brand" href="/adminview/admindashboard">Admin Dashboard | Admin Records</a>
           </div>
         </nav>
+
 
         <div class="container mt-5">
           <form class="mt-3 mb-3" action="/adminview/admindashboard" method="get">
@@ -73,6 +74,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Gender</th>
+                    <th>Contact Number</th>
                     <th>Email</th> 
                     <th>Password</th> 
                     <th>Role</th> 
@@ -87,12 +90,21 @@
                       <tr>
                         <td><%= counter %></td>
                         <td><%= user.firstname %> <%= user.lastname %></td>
+                        <td><%= user.gender %></td> 
+                        <td><%= user.contactnumber %></td> 
                         <td><%= user.email %></td> 
                         <td><%= user.password.substr(0, 8) + '...' %></td>
                         <td><%= user.usertype %></td>
                         <td>
-                          <a href="/adminview/updateuser" class="btn btn-primary btn-sm">Edit</a>
-                          <button class="btn btn-danger btn-sm">Delete</button>
+
+                          <% if (user.email === 'masteradmin@gmail.com') { %>
+                            <form action=""><button type="submit" onclick="alert('This account cannot be edited.');">Edit</button></form>
+                            <form action=""><button type="submit" onclick="alert('This account cannot be deleted.');">Delete</button></form>
+
+                          <% } else { %>
+                            <a href="/adminview/<%=user.id%>/edituser">Edit</a>
+                            <form action="/adminview/admindashboard/<%=user.id%>/delete" method="post"><button type="submit">Delete</button></form>
+                          <% } %>
                         </td>  
                       </tr>
                       <% counter++ %>

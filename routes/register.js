@@ -34,9 +34,9 @@ router.get('/register', async function(req, res, next) {
 
 /* POST register page. */
 router.post('/register', async function(req, res, next) {
-  const { firstname, lastname, email, password, usertype } = req.body;
+  const { firstname, lastname, gender, contactnumber, email, password, usertype } = req.body;
 
-//   Encrypt password using SHA256
+//   Encrypt password using SHA512
   const hash = crypto.createHash('sha512');
   hash.update(password);
   const encryptedPassword = hash.digest('hex');
@@ -45,23 +45,26 @@ router.post('/register', async function(req, res, next) {
     const user = await prisma.user.create({
       data: {
         firstname, 
-        lastname, 
+        lastname,
+        gender,
+        contactnumber, 
         email,
         password: encryptedPassword, // Store encrypted password
         // password,
         usertype
       },
     });
-    res.redirect('/register');
+    res.redirect('/adminview/admindashboard');
   } catch (error) {
     if (error.code === 'P2002') {
-      res.status(400).render('register', { title: 'Register', error: 'Email already exists.' });
+      res.status(400).render('/register', { title: 'Register', error: 'Email already exists.' });
     } else {
       console.error(error);
-      res.status(500).render('register', { title: 'Register', error: 'Something went wrong. Please try again later.' });
+      res.status(500).render('/register', { title: 'Register', error: 'Something went wrong. Please try again later.' });
     }
   }
 });
+
 
 
 

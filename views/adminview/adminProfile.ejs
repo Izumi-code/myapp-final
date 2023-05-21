@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Management Dashboard - Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .container {
+        max-width: 800px;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/admin/admindashboard">Admin Management Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/adminprofile">Profile</a>
+            </li>  
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>  
+          </ul> 
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h1 class="text-center">Profile</h1>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <label for="inputName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="inputName" value="<%= user.firstname %> <%= user.lastname %>" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="inputEmail" value="<%= user.email %>">
+            </div>
+            <% if (user.email === 'masteradmin@gmail.com') { %>
+              <button type="submit" class="btn btn-primary" disabled>Update</button>
+              <button type="button" class="btn btn-danger" onclick="alert('This account cannot be deleted.');">Delete account</button>
+            <% } else { %>
+              <button type="submit" class="btn btn-primary">Update</button>
+              <a href="/adminview/deleteAdminProfile" class="btn btn-danger">Delete account</a>
+            <% } %>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form method="POST" action="/admin/updatepassword">
+            <div class="mb-3">
+              <label for="inputOldPassword" class="form-label">Old password</label>
+              <input type="password" class="form-control" id="inputOldPassword" name="oldPassword" required>
+            </div>
+            <div class="mb-3">
+              <label for="inputNewPassword" class="form-label">New password</label>
+              <input type="password" class="form-control" id="inputNewPassword" name="newPassword" required>
+            </div>
+            <div class="mb-3">
+              <label for="inputConfirmPassword" class="form-label">Confirm new password</label>
+              <input type="password" class="form-control" id="inputConfirmPassword" name="confirmNewPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update password</button>
+          </form>              
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-n/4gHWY7TPBZj7Fk8g9WEQ0tJvQ+fdyG/m8iXMHuZQM4XUOjuj9ZzQGsbyRocI2IJHVv5h0ST2qvQa0mGfHv8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
