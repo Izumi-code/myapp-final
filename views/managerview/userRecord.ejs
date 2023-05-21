@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Dashboard</title>
+  <title>Manager Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
   <style>
     /* Custom styles for the side panel */
     .side-panel {
       background-color: #f8f9fa;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .side-panel ul {
@@ -28,7 +26,6 @@
       color: #333;
       text-decoration: none;
       transition: background-color 0.3s;
-      border-radius: 5px;
     }
 
     .side-panel a:hover {
@@ -37,43 +34,47 @@
 
     /* Custom styles for the navbar */
     .navbar {
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #f8f9fa;
+      padding: 10px 20px;
     }
 
     .navbar-brand {
       color: #333;
+      font-size: 1.5rem;
       font-weight: bold;
+      text-decoration: none;
+    }
+
+    .search-form {
+      margin-top: 20px;
+    }
+
+    .search-form .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .search-form .btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
 
     /* Custom styles for the table */
-    .custom-table th,
+    .custom-table {
+      border: none;
+    }
+
+    .custom-table thead {
+      background-color: #343a40;
+      color: #fff;
+    }
+
+    .custom-table th {
+      font-weight: bold;
+    }
+
     .custom-table td {
-      vertical-align: middle;
-    }
-
-    .custom-table th:nth-child(1) {
-      width: 5%;
-    }
-
-    .custom-table th:nth-child(2) {
-      width: 20%;
-    }
-
-    .custom-table th:nth-child(3),
-    .custom-table th:nth-child(4),
-    .custom-table th:nth-child(5) {
-      width: 10%;
-    }
-
-    .custom-table th:nth-child(6),
-    .custom-table th:nth-child(7),
-    .custom-table th:nth-child(8) {
-      width: 15%;
-    }
-
-    .custom-table td button {
-      margin-right: 5px;
+      font-weight: normal;
     }
   </style>
 </head>
@@ -85,9 +86,9 @@
         <div class="side-panel">
           <h5>Records</h5>
           <ul>
-            <li><a href="/adminview/adminRecord">Admin Records</a></li>
-            <li><a href="/adminview/managerRecord">Manager Records</a></li>
-            <li><a href="/adminview/userRecord">User Records</a></li>
+            <!-- <li><a href="/admin/admindashboard">Admin Records</a></li> -->
+            <li><a href="/managerview/managerRecord">Manager Records</a></li>
+            <li><a href="/managerview/userRecord">User Records</a></li>
           </ul>
         </div>
       </div>
@@ -96,17 +97,17 @@
       <div class="col-lg-9 col-md-8">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/adminview/admindashboard">Admin Dashboard | Manager Records</a>
+            <a class="navbar-brand" href="/managerview/managerdashboard">Manager Dashboard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto">
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="/register">Create User</a>
+                </li> -->
                 <li class="nav-item">
-                  <a class="nav-link" href="/register">Create a User</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/adminview/adminProfile">Profile</a>
+                  <a class="nav-link" href="/managerview/managerProfile">Profile</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
@@ -117,14 +118,14 @@
         </nav>
 
         <div class="container mt-5">
-          <form class="mt-3 mb-3" action="/adminview/admindashboard" method="get">
+          <form class="search-form" action="/managerview/managerdashboard" method="get">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search" value="<%= query || '' %>">
               <button type="submit" class="btn btn-primary">Search</button>
             </div>
           </form>
-          <table class="table table-striped custom-table">
-            <thead class="table-dark">
+          <table class="table custom-table">
+            <thead>
               <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -150,15 +151,9 @@
                     <td><%= user.password.substr(0, 8) + '...' %></td>
                     <td><%= user.usertype %></td>
                     <td>
-                      <% if (user.email === 'masteradmin@gmail.com') { %>
-                        <form action=""><button class="btn btn-warning" type="submit" onclick="alert('This account cannot be edited.');">Edit</button></form>
-                        <form action=""><button class="btn btn-danger" type="submit" onclick="alert('This account cannot be deleted.');">Delete</button></form>
-                      <% } else { %>
+
                         <a class="btn btn-warning" href="/adminview/<%=user.id%>/edituser">Edit</a>
-                        <form action="/adminview/admindashboard/<%=user.id%>/delete" method="post" onclick="alert('Confirm deletion?')">
-                          <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                      <% } %>
+                        <form action="/adminview/admindashboard/<%=user.id%>/delete" method="post" onclick="alert('Confirm deletion?')"><button class="btn btn-danger" type="submit">Delete</button></form>
                     </td>  
                   </tr>
                   <% counter++ %>
@@ -174,4 +169,4 @@
         
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
       </body>
-    </html
+    </html>

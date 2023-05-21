@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+</head>
+<body>
+        <!-- Content goes here -->
+        <div class="container">
+            <h2>User Registration</h2>
+            <form action="/signup" method="post">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required>
+              </div>
+              <div class="mb-3">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
+                  <label class="form-check-label" for="genderMale">
+                    Male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female" required>
+                  <label class="form-check-label" for="genderFemale">
+                    Female
+                  </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="contactnumber" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactnumber" name="contactnumber" required>
+              </div>
+              <div class="mb-3">
+                <label for="usertype" class="form-label">User Type</label>
+                <select class="form-select" id="usertype" name="usertype" required>
+                  <option value="">Select User Type</option>
+                  <option value="User">User</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ const session = require('express-session');
 const crypto = require('crypto');
 const { PrismaClient } = require("@prisma/client");
 const { v4: uuidv4 } = require('uuid');
+const { render } = require('ejs');
 
 const prisma = new PrismaClient();
 
@@ -28,7 +29,7 @@ router.get('/register', async function(req, res, next) {
     var users = await prisma.user.findMany()
     res.render('register', { title: 'Register'});
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 });
 
@@ -60,7 +61,7 @@ router.post('/register', async function(req, res, next) {
       res.status(400).render('/register', { title: 'Register', error: 'Email already exists.' });
     } else {
       console.error(error);
-      res.status(500).render('/register', { title: 'Register', error: 'Something went wrong. Please try again later.' });
+      res.status(500).render('/register', { title: 'Register', error: 'Error. Please try again later.' });
     }
   }
 });

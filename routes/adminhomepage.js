@@ -5,6 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const crypto = require('crypto');
 const prisma = new PrismaClient();
 const app = express();
+const bcrypt = require('bcrypt');
 
 app.set('view engine', 'ejs');
 
@@ -248,7 +249,7 @@ router.get('/adminview/deleteAdminProfile', async function(req, res, next) {
     }
   });
 
-  // post the updated user details
+//   post the updated user details
   router.post('/adminview/admindashboard/updateuser/:id', async (req, res) => {
     try {
       const userId = req.params.id;
@@ -290,10 +291,15 @@ router.get('/adminview/deleteAdminProfile', async function(req, res, next) {
     }
   });
 
-  function hashPassword(password) {
+
+  
+
+// Helper function to hash the password
+function hashPassword(password) {
     const hash = crypto.createHash('sha512');
     hash.update(password);
     return hash.digest('hex');
   }
+
 
   module.exports = router;

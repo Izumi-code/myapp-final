@@ -9,6 +9,7 @@ var registerRouter = require('./routes/register');
 var adminhomeRouter = require('./routes/adminhomepage');
 var managerhomeRouter = require('./routes/managerhomepage');
 var userhomeRouter = require('./routes/userhomepage');
+var signupRouter = require('./routes/signup');
 var app = express();
 
 // view engine setup
@@ -26,6 +27,7 @@ app.use('/', registerRouter);
 app.use('/', adminhomeRouter); 
 app.use('/', managerhomeRouter); 
 app.use('/', userhomeRouter); 
+app.use('/', signupRouter); 
   
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
